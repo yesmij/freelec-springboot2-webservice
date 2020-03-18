@@ -31,4 +31,6 @@ dependencies {
     compile('org.projectlombok:lombok')
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("com.h2database:h2")
+    compile("org.springframework.boot:spring-boot-starter-mustache")   //파일 확장자는 자동적으로 .mustache가 붙음
+                                                                       // src/main/resources/templates/밑에 파일명에 붙음 --> View Resolver 가 처리
 }

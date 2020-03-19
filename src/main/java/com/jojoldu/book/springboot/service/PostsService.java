@@ -26,8 +26,8 @@ public class PostsService {
     @Transactional  //(readOnly = true)                     // 트랜잭션 범위는 유지학, 조회만 하는 경우, 속도가 개선
     public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)         // .map( posts -> new PostsListResponseDto(posts) )
-                .collect(Collectors.toList());
+                .map(PostsListResponseDto::new)             // .map( posts -> new PostsListResponseDto(posts) )
+                .collect(Collectors.toList());              // todo collect 역할?
     }
 
 
@@ -43,5 +43,10 @@ public class PostsService {
         Posts posts = postsRepository.findById(id).orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니당. id = " + id) );
 
         return new PostsResponseDto(posts);
+    }
+
+    public void deleteById(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없어!! id = " + id));
+        postsRepository.delete(posts);                               // 바로 delete 할 수 있지만, 게시물 존재여부 확인을 위해 객체 조회후 삭제처리!!
     }
 }
